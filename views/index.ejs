@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ぱずぷれのURLから画像付きツイートするやつ</title>
+    <link rel='stylesheet' href='./stylesheets/style.css' />
+    <script src="./javascripts/pzpr-tweet.js">
+
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <h1>ぱずぷれのURLから画像付きツイートするやつ</h1>
+      <div>読んで字のごとくのツールです。ツイートするために読み書きの権限を要求しますが、操作なしにツイートすることはありません。</div>
+<% if(session && Object.keys(session).length > 0) { %>
+  <img src="<%= session.user.photos[0].value %>">
+  <form method="post" action="./submit" id="form">
+    <div>ぱずぷれのURL</div>
+    <div class=""><input type="text" id="url" name="url" autocomplete="off"></div>
+    <div id="urlAlert" class="alert">URLが正しくないみたいです。</div>
+    <div>ツイート文章</div>
+    <div><textarea id="txt"></textarea></div>
+    <div id="txtAlert" class="alert">本文を入力してください。<br>URLだけツイートする場合は、[url]を明示してください。</div>
+    <div class="small">変数[url],[date]が使えます。文章中に[url]がない場合は自動で末尾に付加されます。</div>
+
+    <% if(locals.status && status == "success") { %>
+      <div class="center success">ツイートに成功しました！
+        <% if(locals.tweetid) { %>
+          <a href="https://twitter.com/_/status/<%= tweetid %>">ツイートを見る</a>
+        <% } %>
+      </div>
+    <% } else if(locals.status && status == "failed") { %>
+      <div class="center failed">ツイートに失敗しました。@udop_まで連絡ください。</div>
+    <% } %>
+
+    <div class="center"><input type="submit" id="submit" value="ツイート！"></div>
+    <input type="hidden" name="tweet_text" id="tweet_text" value="このテキストが投稿されている場合は失敗しているよ">
+  </form>
+<% } else { %>
+  <div><a href="/oauth" class="btn-large waves-effect waves-light" style="text-transform: none;">Twitterでログイン</a></div>
+<% } %>
+</div>
+  </body>
+</html>
