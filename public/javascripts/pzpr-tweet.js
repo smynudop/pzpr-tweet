@@ -34,6 +34,9 @@ function onSubmit() {
     } else {
         txt = txt + "\n" + url
     }
+
+    let now = new Date()
+    txt = txt.replace("[date]", String(now.getMonth() + 1) + "/" + now.getDate())
     document.getElementById("tweet_text").value = txt
     console.log(txt)
 

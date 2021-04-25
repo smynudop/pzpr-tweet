@@ -27,12 +27,10 @@ class PzprTweet {
     }
 
     static async fetchImg(url) {
-        url = url.replace(/https?:\/\/pzv\.jp\/p.html\?/, "https://puzz.link/pv?")
-        url = url.replace(/https?:\/\/pzv\.jp\/p\?/, "https://puzz.link/pv?")
+        url = url.replace(/https?:\/\/pzv\.jp\/p.html\?/, "https://puzz.link/pv?frame=3&")
+        url = url.replace(/https?:\/\/pzv\.jp\/p\?/, "https://puzz.link/pv?frame=3&")
 
-        url = url.replace(/https?:\/\/puzz.link\/p\?/, "https://puzz.link/pv?")
-
-        console.log(url)
+        url = url.replace(/https?:\/\/puzz.link\/p\?/, "https://puzz.link/pv?frame=3&")
 
         const res = await fetch(url)
         if (!res.ok) throw new Error("画像が正常に取得できませんでした")
